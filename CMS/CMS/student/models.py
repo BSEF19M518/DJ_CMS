@@ -1,3 +1,4 @@
+from re import M
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -21,16 +22,23 @@ SECTION_CHOICES = (
     ('M','Morning'),
     ('A','Afternoon'),
 )
-SEMESTER_CHOICES = (
-   ('1','1'),
-   ('2','2'),
-   ('3','3'),
-   ('4','4'),
-   ('5','5'),
-   ('6','6'),
-   ('7','7'),
-   ('8','8'),
+
+SEASON_CHOICES = (
+    ('S','Spring'),
+    ('F','Fall'),
 )
+
+# SEMESTER_CHOICES = (
+#    ('1','1'),
+#    ('2','2'),
+#    ('3','3'),
+#    ('4','4'),
+#    ('5','5'),
+#    ('6','6'),
+#    ('7','7'),
+#    ('8','8'),
+# )
+
 
 class Student(models.Model):
     user = models.OneToOneField(User,on_delete=models.SET_NULL,null=True)
@@ -41,12 +49,7 @@ class Student(models.Model):
     gender= models.CharField(max_length=1,choices=GENDER_CHOICES,null=True, blank=True)
     dateOfBirth= models.DateField(null=True, blank=True)
     major= models.CharField(max_length=2,choices=MAJOR_CHOICES,null=True, blank=True)
-    batch_year= models.IntegerField(default=0,null=True, blank=True)
-    section= models.CharField(max_length=1,choices=SECTION_CHOICES,null=True, blank=True)
-    pass_out= models.BooleanField(default=False,blank=True,null=True)
-    semester= models.PositiveIntegerField(default=1,null=True, blank=True)
-
-
+    batch=models.ForeignKey('Batch',on_delete=models.SET_NULL,null=True)
         
     class Meta:
         verbose_name = 'Student'
@@ -54,6 +57,15 @@ class Student(models.Model):
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
+   
+class Batch(models.Model):
+     batch_year = models.PositiveIntegerField(default=0)
+     season= models.CharField(max_length=1,choices=SEASON_CHOICES)
+     semester= models.PositiveIntegerField(default=1,null=True)
+     pass_out= models.BooleanField(default=False,blank=True,null=True)
+
+     def __str__(self):
+        return f'{self.season}-{self.batch_year} | semester:{self.semester}'
 
 class Grade(models.Model):
     pass

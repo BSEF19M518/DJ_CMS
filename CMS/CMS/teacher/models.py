@@ -18,3 +18,6 @@ class Teacher(models.Model):
     gender= models.CharField(max_length=1,choices=GENDER_CHOICES,null=True, blank=True)
     dateOfBirth= models.DateField(null=True, blank=True)
     designation= models.CharField(max_length=20, null=True, blank=True)
+
+    def __str__(self):
+        return f'{self.user.first_name} {self.user.last_name}'
