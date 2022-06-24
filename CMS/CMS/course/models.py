@@ -1,5 +1,5 @@
 from django.db import models
-from student.models import Student
+from student.models import Student, Batch,SessionInfo
 from teacher.models import Teacher
 # Create your models here.
 
@@ -15,6 +15,11 @@ ATTENDANCE_CHOICES = (
     ('D', 'Delay'),
 )
 
+SHIFT_CHOICES = (
+    ('M','Morning'),
+    ('A','Afternoon'),
+)
+
 class Course(models.Model):
     
     title = models.CharField(max_length=50)
@@ -28,13 +33,23 @@ class Course(models.Model):
 
 class EnrolledCourses(models.Model):
     student = models.ForeignKey(Student, on_delete=models.SET_NULL,null=True)
-    course=models.ForeignKey(Course, on_delete=models.SET_NULL,null=True)
-    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL,null=True)
-    semester = models.PositiveIntegerField(default=1)
+    courseEnrolled = models.ForeignKey('OfferedCourse', on_delete=models.SET_NULL,null=True)
 
 
     def __str__(self):
-        return f'Student: {self.student } | Course: {self.course.title} | Teacher: {self.teacher} | Semester: {self.semester}'
+        return f'Student: {self.student } enrolled in {self.courseEnrolled}'
+
+
+class OfferedCourse(models.Model):
+    teacher = models.ForeignKey(Teacher, on_delete=models.SET_NULL,null=True)
+    course = models.ForeignKey(Course, on_delete=models.SET_NULL,null=True)
+    batch = models.ForeignKey(Batch, on_delete=models.SET_NULL, null=True)
+    sessionInfo= models.ForeignKey(SessionInfo, on_delete=models.SET_NULL, null=True)
+    shift = models.CharField(max_length=1, default='M', choices=SHIFT_CHOICES)
+
+    def __str__(self):
+        return f'Batch: {self.batch } | Course: {self.course.title} | Teacher: {self.teacher} | SessionInfo: {self.sessionInfo} | Shift: {self.shift}'
+
 
 class Attendance(models.Model):
     courseInfo = models.ForeignKey(EnrolledCourses, on_delete=models.SET_NULL, null=True)

@@ -18,7 +18,7 @@ MAJOR_CHOICES = (
     ('IT','Information Technology'),
 )
 
-SECTION_CHOICES = (
+SHIFT_CHOICES = (
     ('M','Morning'),
     ('A','Afternoon'),
 )
@@ -50,6 +50,7 @@ class Student(models.Model):
     dateOfBirth= models.DateField(null=True, blank=True)
     major= models.CharField(max_length=2,choices=MAJOR_CHOICES,null=True, blank=True)
     batch=models.ForeignKey('Batch',on_delete=models.SET_NULL,null=True)
+    shift = models.CharField(max_length=1, default='M', choices=SHIFT_CHOICES)
         
     class Meta:
         verbose_name = 'Student'
@@ -57,15 +58,20 @@ class Student(models.Model):
 
     def __str__(self):
         return f'{self.user.first_name} {self.user.last_name}'
-   
-class Batch(models.Model):
-     batch_year = models.PositiveIntegerField(default=0)
-     season= models.CharField(max_length=1,choices=SEASON_CHOICES)
-     semester= models.PositiveIntegerField(default=1,null=True)
-     pass_out= models.BooleanField(default=False,blank=True,null=True)
 
+class SessionInfo(models.Model):
+    season= models.CharField(max_length=1,choices=SEASON_CHOICES)
+    year= models.PositiveIntegerField(default=2000,null=True)
+
+    def __str__(self):
+        return f'Session(Season: {self.season}, year: {self.year})'
+
+class Batch(models.Model):
+     sessionInfo = models.ForeignKey(SessionInfo, on_delete=models.SET_NULL, null=True)
+     pass_out= models.BooleanField(default=False,blank=True,null=True)     
+     semester= models.PositiveIntegerField(default=1,null=True)
      def __str__(self):
-        return f'{self.season}-{self.batch_year} | semester:{self.semester}'
+        return f'Batch(Session: {self.sessionInfo} | current_semester: {self.semester})'
 
 class Grade(models.Model):
     pass
