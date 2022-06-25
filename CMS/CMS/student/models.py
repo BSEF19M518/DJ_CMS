@@ -72,6 +72,3 @@ class Batch(models.Model):
      semester= models.PositiveIntegerField(default=1,null=True)
      def __str__(self):
         return f'Batch(Session: {self.sessionInfo} | current_semester: {self.semester})'
-
-class Grade(models.Model):
-    pass

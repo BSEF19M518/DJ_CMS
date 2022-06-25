@@ -31,6 +31,7 @@ class Course(models.Model):
     def __str__(self):
         return self.title
 
+
 class EnrolledCourses(models.Model):
     student = models.ForeignKey(Student, on_delete=models.SET_NULL,null=True)
     courseEnrolled = models.ForeignKey('OfferedCourse', on_delete=models.SET_NULL,null=True)
@@ -38,6 +39,7 @@ class EnrolledCourses(models.Model):
 
     def __str__(self):
         return f'Student: {self.student } enrolled in {self.courseEnrolled}'
+
 
 
 class OfferedCourse(models.Model):
@@ -58,3 +60,19 @@ class Attendance(models.Model):
 
     def __str__(self):
         return f'Student: {self.courseInfo.student} | Date: {self.date} | Status: {self.status}'
+
+class CourseActivity(models.Model):
+    name = models.CharField(max_length=15)
+    weightage = models.FloatField()
+    offered_course = models.ForeignKey(OfferedCourse, on_delete=models.SET_NULL, null=True)
+    
+class CourseActivityItem(models.Model):
+    name = models.CharField(max_length=15)
+    activity = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
+    total = models.FloatField()
+    obtained = models.FloatField()
+     
+class GradeBook(models.Model):
+    course_activity_item = models.ForeignKey(CourseActivityItem, on_delete=models.SET_NULL, null=True)
+    student = models.ForeignKey(Student, on_delete=models.SET_NULL,null=True)
+    obtained = models.FloatField()
