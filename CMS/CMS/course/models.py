@@ -1,3 +1,4 @@
+from cmath import inf
 from django.db import models
 from student.models import Student, Batch,SessionInfo
 from teacher.models import Teacher
@@ -66,13 +67,21 @@ class CourseActivity(models.Model):
     weightage = models.FloatField()
     offered_course = models.ForeignKey(OfferedCourse, on_delete=models.SET_NULL, null=True)
     
+    def __str__(self):
+        return f"Activity: {self.name} | Weight: {self.weightage} | Offered: {self.offered_course}"
 class CourseActivityItem(models.Model):
     name = models.CharField(max_length=15)
-    activity = models.ForeignKey(Course, on_delete=models.SET_NULL, null=True)
+    activity = models.ForeignKey(CourseActivity, on_delete=models.SET_NULL, null=True)
     total = models.FloatField()
     obtained = models.FloatField()
+    
+    def __str__(self):
+        return f"Name: {self.name} | Activity: {self.activity}, Total: {self.total}"
      
 class GradeBook(models.Model):
     course_activity_item = models.ForeignKey(CourseActivityItem, on_delete=models.SET_NULL, null=True)
     student = models.ForeignKey(Student, on_delete=models.SET_NULL,null=True)
     obtained = models.FloatField()
+    
+    def __str__(self):
+        return f"course_activity_item: {self.course_activity_item} || Student: {self.student} || Marks obt: {self.obtained} || "
