@@ -1,0 +1,77 @@
+<div class="flex-shrink-0 p-3 bg-white" style="width: 280px;">
+    <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+      <svg class="bi me-2" width="30" height="24"><use xlink:href="#bootstrap"></use></svg>
+      <span class="fs-5 fw-semibold">Collapsible</span>
+    </a>
+    <ul class="list-unstyled ps-0">
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="true">
+          Home
+        </button>
+        <div class="collapse show" id="home-collapse" style="">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="{% url 'administrator:home' %}" class="link-dark rounded">Main Page</a></li>
+            <li><a href="#" class="link-dark rounded">Overview</a></li>
+            <li><a href="#" class="link-dark rounded">Updates</a></li>
+            <li><a href="#" class="link-dark rounded">Reports</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#teacher-collapse" aria-expanded="false">
+          Teacher Management
+        </button>
+        <div class="collapse" id="teacher-collapse" style="">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="{% url 'administrator:view_teachers' %}" class="link-dark rounded">View All Teachers</a></li>
+            <li><a href="{% url 'administrator:add_teacher' %}" class="link-dark rounded">Add New Teacher</a></li>
+            <li><a href="#" class="link-dark rounded">Update Existing Teacher</a></li>
+            <li><a href="#" class="link-dark rounded">Delete Existing Teacher</a></li>
+            <li><a href="#" class="link-dark rounded">Search Teacher</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#courses-collapse" aria-expanded="false">
+          Course Management
+        </button>
+        <div class="collapse" id="courses-collapse" style="">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-dark rounded">View All Courses</a></li>
+            <li><a href="#" class="link-dark rounded">Add New Courses</a></li>
+            <li><a href="#" class="link-dark rounded">Update Existing Courses</a></li>
+            <li><a href="#" class="link-dark rounded">Delete Existing Courses</a></li>
+            <li><a href="#" class="link-dark rounded">Search Courses</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#student-collapse" aria-expanded="false">
+        Student Management
+        </button>
+        <div class="collapse" id="student-collapse" style="">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-dark rounded">View All Student</a></li>
+            <li><a href="#" class="link-dark rounded">Add New Student</a></li>
+            <li><a href="#" class="link-dark rounded">Update Existing Student</a></li>
+            <li><a href="#" class="link-dark rounded">Delete Existing Student</a></li>
+            <li><a href="#" class="link-dark rounded">Search Student</a></li>
+          </ul>
+        </div>
+      </li>
+      <li class="border-top my-3"></li>
+      <li class="mb-1">
+        <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+          Account
+        </button>
+        <div class="collapse" id="account-collapse">
+          <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+            <li><a href="#" class="link-dark rounded">New...</a></li>
+            <li><a href="#" class="link-dark rounded">Profile</a></li>
+            <li><a href="#" class="link-dark rounded">Settings</a></li>
+            <li><a href="#" class="link-dark rounded">Sign out</a></li>
+          </ul>
+        </div>
+      </li>
+    </ul>
+  </div>

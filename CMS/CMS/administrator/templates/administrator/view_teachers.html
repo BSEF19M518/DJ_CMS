@@ -1,0 +1,29 @@
+{% extends 'administrator/administrator_base.html' %} 
+
+
+{% block admin_content %}
+
+<div class="container mt-5">
+    <table class="table table-bordered table-dark">
+        <thead>
+          <tr>
+            <th scope="col">No.</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Designation</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% for teacher in teachers %}
+        
+          <tr>
+            <th scope="row">{{forloop.counter}}</th>
+            <td>{{teacher.user.first_name}} {{teacher.user.last_name}}</td>
+            <td>{{teacher.user.email}}</td>
+            <td>{{teacher.designation}}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+</div>
+{% endblock admin_content %}

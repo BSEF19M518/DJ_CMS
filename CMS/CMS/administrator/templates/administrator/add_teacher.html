@@ -1,0 +1,16 @@
+{% extends 'administrator/administrator_base.html' %} 
+{% load crispy_forms_tags %}
+{% block admin_content %}
+
+<div class="container mt-4 mb-4">
+    <form method="POST">
+        {% csrf_token %}
+        {{user_form|crispy}}
+        {{teacher_form|crispy}}
+        <input type="submit" class="btn btn-primary" value="Submit">
+    </form>
+</div>
+
+
+
+{% endblock admin_content %}
