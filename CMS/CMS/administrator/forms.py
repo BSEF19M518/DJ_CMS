@@ -14,10 +14,11 @@ class UserForm(forms.ModelForm):
         
         for ind,(name,field) in enumerate(self.fields.items()):
             field.widget.attrs.update({'placeholder': f'{placeholders[ind]}'})
-            
+        
 class TeacherForm(forms.ModelForm):
     
     dateOfBirth =forms.DateField(widget = forms.SelectDateWidget) 
+   
     class Meta:
         model = Teacher
         fields ='__all__'
@@ -29,9 +30,3 @@ class TeacherForm(forms.ModelForm):
         placeholders = ['Profile Picture','Home Address', 'Telephone', 'Gender', 'Date of Birth', 'Designation']    
         for ind,(name,field) in enumerate(self.fields.items()):
             field.widget.attrs.update({'placeholder': f'{placeholders[ind]}'})
-            
-            
-            
-        
-
-    

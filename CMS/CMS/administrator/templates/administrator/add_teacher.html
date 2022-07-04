@@ -7,6 +7,11 @@
         {% csrf_token %}
         {{user_form|crispy}}
         {{teacher_form|crispy}}
+
+        {% comment %} <div class="custom-file mt-3 mb-3">
+            <input type="file" class="custom-file-input" id="customFile">
+            <label class="custom-file-label" for="customFile">Profile Picture</label>
+          </div> {% endcomment %}
         <input type="submit" class="btn btn-primary" value="Submit">
     </form>
 </div>
