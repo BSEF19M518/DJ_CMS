@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 from . forms import TeacherForm, UserForm
 from teacher.models import Teacher
-
+from django.contrib.auth.models import Group
+from django.contrib.auth.decorators import login_required
 # Create your views here.
 
-
+@login_required
 def home(request):
     
     context={'colors':['success',
@@ -16,7 +17,7 @@ def home(request):
                        'dark']}
     return render(request,'administrator/home.html',context)
 
-
+@login_required
 def add_teacher(request):
     
     if request.method == 'POST':
@@ -26,6 +27,9 @@ def add_teacher(request):
         if teacherForm.is_valid() and userForm.is_valid():
             user = userForm.save(commit=False)
             user.set_password('cms123')
+            teacher_group = Group.objects.get(name='teacher')
+            user.save()
+            user.groups.add(teacher_group)
             user.save()
             
             teacher = teacherForm.save(commit=False)
@@ -40,6 +44,7 @@ def add_teacher(request):
     context = {'user_form':userForm, 'teacher_form':teacherForm}
     return render(request, 'administrator/add_teacher.html', context)
 
+@login_required
 def update_teacher(request,pk):
     
     teacher = Teacher.objects.get(id=pk)
@@ -61,6 +66,7 @@ def update_teacher(request,pk):
     context = {'user_form':userForm, 'teacher_form':teacherForm}
     return render(request, 'administrator/add_teacher.html', context)
 
+@login_required
 def delete_teacher(request,pk):
     
     teacher = Teacher.objects.get(id=pk)
@@ -70,7 +76,8 @@ def delete_teacher(request,pk):
     user.delete()
     teacher.delete()
     return redirect('administrator:view_teachers')
-    
+
+@login_required  
 def view_teachers(request):
     teachers= Teacher.objects.all()
     context = {'teachers':teachers}
