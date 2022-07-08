@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
-from .views import home,add_teacher,view_teachers, update_teacher, delete_teacher
+from .views import (home,add_teacher,view_teachers,
+                    update_teacher, delete_teacher,
+                    teacher_profile)
 app_name='administrator'
 
 urlpatterns = [
@@ -9,4 +11,5 @@ urlpatterns = [
     path('view_teachers/', view_teachers, name="view_teachers"),
     path('update_teacher/<str:pk>/', update_teacher, name="update_teacher"),
     path('delete_teacher/<str:pk>/', delete_teacher, name="delete_teacher"),
+    path('teacher_profile/<str:pk>/', teacher_profile, name="teacher_profile"),
 ]

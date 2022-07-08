@@ -82,3 +82,7 @@ def view_teachers(request):
     teachers= Teacher.objects.all()
     context = {'teachers':teachers}
     return render(request, 'administrator/view_teachers.html', context)
+
+@login_required
+def teacher_profile(request, pk):
+    return render(request, 'administrator/teacher_profile.html')

@@ -25,3 +25,4 @@ def login_user(request):
 @login_required
 def logout_user(request):
     logout(request)
+    return redirect('login_user')
